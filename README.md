@@ -2,8 +2,7 @@
 
 # terraform-aws-apigateway [![Build Status](https://api.travis-ci.com/JamesWoolfenden/terraform-aws-codebuild.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codebuild) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codebuild.svg)](https://github.com/JamesWoolfenden/terraform-aws-codebuild/releases/latest)
 
-Terraform module to provision an AWS [`codebuild`](https://aws.amazon.com/codebuild/) CI/CD system.
-
+Terraform module to create an apigateway.
 ---
 
 It's 100% Open Source and licensed under the [APACHE2](LICENSE).
@@ -103,7 +102,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2019 [Slalom, LLC](https://slalom.com)
+Copyright Â© 2019-2019 [Slalom, LLC](https://slalom.com)
 
 ## License
 
