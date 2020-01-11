@@ -4,10 +4,10 @@
 RM  = rm .terraform/modules/ -fr
 BLAT= rm .terraform/ -fr
 
-# Windows 
+# Windows
 ifeq ($(OS), Windows_NT)
-   RM   = del /Q .terraform\modules\ 
-   BLAT = del /Q .terraform\ 
+   RM   = del /Q .terraform\modules\
+   BLAT = del /Q .terraform\
 endif
 
 .PHONY: all

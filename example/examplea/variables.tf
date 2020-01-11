@@ -4,7 +4,7 @@ variable "common_tags" {
 }
 
 variable "function_name" {
-    type = string
+  type = string
 }
 
 variable "name" {
