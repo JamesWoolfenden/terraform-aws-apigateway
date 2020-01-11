@@ -10,7 +10,6 @@ ifeq ($(OS), Windows_NT)
    BLAT = del /Q .terraform\ 
 endif
 
-
 .PHONY: all
 
 all: init plan build
