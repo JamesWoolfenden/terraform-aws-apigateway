@@ -1,6 +1,6 @@
 [![Slalom][logo]](https://slalom.com)
 
-# terraform-aws-apigateway [![Build Status](https://api.travis-ci.com/JamesWoolfenden/terraform-aws-codebuild.svg?branch=master)](https://travis-ci.com/JamesWoolfenden/terraform-aws-codebuild) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-codebuild.svg)](https://github.com/JamesWoolfenden/terraform-aws-codebuild/releases/latest)
+# terraform-aws-apigateway [![Build Status](https://github.com/JamesWoolfenden/terraform-aws-apigateway/workflows/Verify%20and%20Bump/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-aws-apigateway) [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-aws-apigateway.svg)](https://github.com/JamesWoolfenden/terraform-aws-apigateway/releases/latest)
 
 Terraform module to create an apigateway.
 ---
