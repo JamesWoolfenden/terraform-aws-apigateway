@@ -1,16 +1,22 @@
-#Makefile
+# Makefile
 
 # Linux (default)
 RM  = rm .terraform/modules/ -fr
 BLAT= rm .terraform/ -fr
 
-# Windows
+# Windows (cygwin)
 ifeq ($(OS), Windows_NT)
    RM   = del /Q .terraform\modules\
+
    BLAT = del /Q .terraform\
+
 endif
 
-.PHONY: all
+# OS X
+ifeq ($(OSTYPE), "darwin9.0")
+        LDFLAGS = -framework Carbon -framework OpenGL -framework GLUT
+
+endif
 
 all: init plan build
 
