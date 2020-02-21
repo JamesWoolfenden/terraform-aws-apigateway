@@ -20,8 +20,7 @@ module "apigateway" {
 
 ## Detailed Notes
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Providers
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->## Providers
 
 | Name | Version |
 |------|---------|
@@ -41,6 +40,7 @@ module "apigateway" {
 | Name | Description |
 |------|-------------|
 | url | n/a |
+
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Related Projects
