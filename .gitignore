@@ -6,6 +6,5 @@
 *.tfstate.*
 
 # .tfvars files
-*.tfvars
 *.bak
 *.orig
