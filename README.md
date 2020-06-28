@@ -20,6 +20,10 @@ module "apigateway" {
 ## Detailed Notes
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -29,8 +33,9 @@ module "apigateway" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | allowed\_range | n/a | `list` | n/a | yes |
+| authorization | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
 | common\_tags | This is to help you add tags to your cloud objects | `map` | n/a | yes |
 | function\_name | n/a | `string` | n/a | yes |
 | name | n/a | `string` | n/a | yes |

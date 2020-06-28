@@ -14,3 +14,9 @@ variable "name" {
 variable "allowed_range" {
   type = list
 }
+
+variable "authorization" {
+  description = "What Auth to use for the method"
+  type        = string
+  default     = "AWS_IAM"
+}
