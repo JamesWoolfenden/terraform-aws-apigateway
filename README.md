@@ -9,7 +9,7 @@
 
 ---
 
-Terraform module to create an apigateway, each gateway will have diffferent resources hanging off it so its more of an exampl than a module. It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+Terraform module to create an apigateway, each gateway will have different resources hanging off it so its more of an example than a module. It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 ## Usage
 
@@ -20,6 +20,47 @@ module "apigateway" {
   source                 = "jameswoolfenden/apigateway/aws"
   common_tags            = var.common_tags
 }
+```
+
+## IAM Permissions
+
+Policies used to create and destroy this resource:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": [
+          "apigateway:DELETE",
+          "apigateway:GET",
+          "apigateway:PATCH",
+          "apigateway:POST",
+          "apigateway:PUT",
+          "apigateway:SetWebACL",
+          "apigateway:UpdateRestApiPolicy"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Action": [
+          "lambda:AddPermission",
+          "lambda:GetAlias",
+          "lambda:GetFunction",
+          "lambda:GetFunctionConfiguration",
+          "lambda:GetPolicy",
+          "lambda:ListAliases",
+          "lambda:ListFunctions",
+          "lambda:ListLayers",
+          "lambda:ListTags",
+          "lambda:RemovePermission"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      }
+    ]
+  }
 ```
 
 ## Detailed Notes
