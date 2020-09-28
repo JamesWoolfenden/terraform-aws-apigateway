@@ -64,7 +64,6 @@ Policies used to create and destroy this resource:
 ## Detailed Notes
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 No requirements.
@@ -72,24 +71,24 @@ No requirements.
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| aws  | n/a     |
+|------|---------|
+| aws | n/a |
 
 ## Inputs
 
-| Name          | Description                                        | Type     | Default     | Required |
-| ------------- | -------------------------------------------------- | -------- | ----------- | :------: |
-| allowed_range | n/a                                                | `list`   | n/a         |   yes    |
-| authorization | What Auth to use for the method                    | `string` | `"AWS_IAM"` |    no    |
-| common_tags   | This is to help you add tags to your cloud objects | `map`    | n/a         |   yes    |
-| function_name | n/a                                                | `string` | n/a         |   yes    |
-| name          | n/a                                                | `string` | n/a         |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| allowed\_range | n/a | `list` | n/a | yes |
+| authorization | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
+| common\_tags | This is to help you add tags to your cloud objects | `map` | n/a | yes |
+| function\_name | n/a | `string` | n/a | yes |
+| name | n/a | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
-| url  | n/a         |
+|------|-------------|
+| url | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
