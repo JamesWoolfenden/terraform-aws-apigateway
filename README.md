@@ -80,11 +80,11 @@ Policies used to create and destroy this resource:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allowed\_range | n/a | `list` | n/a | yes |
+| allowed\_range | List of allowed CIDR | `list(any)` | n/a | yes |
 | authorization | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
-| common\_tags | This is to help you add tags to your cloud objects | `map` | n/a | yes |
-| function\_name | n/a | `string` | n/a | yes |
-| name | n/a | `string` | n/a | yes |
+| common\_tags | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
+| function\_name | value | `string` | n/a | yes |
+| name | value | `string` | n/a | yes |
 
 ## Outputs
 

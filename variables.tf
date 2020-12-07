@@ -1,18 +1,21 @@
 variable "common_tags" {
   description = "This is to help you add tags to your cloud objects"
-  type        = map
+  type        = map(any)
 }
 
 variable "function_name" {
-  type = string
+  description = "value"
+  type        = string
 }
 
 variable "name" {
-  type = string
+  description = "value"
+  type        = string
 }
 
 variable "allowed_range" {
-  type = list
+  description = "List of allowed CIDR"
+  type        = list(any)
 }
 
 variable "authorization" {
