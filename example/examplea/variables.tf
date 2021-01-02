@@ -1,6 +1,7 @@
 
 variable "common_tags" {
-  type = map
+  description = "This is to help you add tags to your cloud objects"
+  type        = map(any)
 }
 
 variable "function_name" {
@@ -12,5 +13,5 @@ variable "name" {
 }
 
 variable "allowed_range" {
-  type = list
+  type = list(any)
 }
