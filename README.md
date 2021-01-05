@@ -11,7 +11,11 @@ Terraform module to create an apigateway, each gateway will have different resou
 
 ## Usage
 
-Include this repository as a module in your existing terraform code:
+This is just a very basic example.
+
+![alt text](./diagram/serverless.png)
+
+Include this repository as a module in your existing Terraform code:
 
 ```hcl
 module "apigateway" {
