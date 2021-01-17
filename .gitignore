@@ -9,3 +9,5 @@
 # .tfvars files
 *.bak
 *.orig
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
