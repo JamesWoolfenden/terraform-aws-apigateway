@@ -108,7 +108,6 @@ No modules.
 | [aws_lambda_permission.apigw_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.api_gateway_resource_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_lambda_function.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lambda_function) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
@@ -118,7 +117,7 @@ No modules.
 | <a name="input_allowed_range"></a> [allowed\_range](#input\_allowed\_range) | List of allowed CIDR | `list(any)` | n/a | yes |
 | <a name="input_authorization"></a> [authorization](#input\_authorization) | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
-| <a name="input_function_name"></a> [function\_name](#input\_function\_name) | value | `string` | n/a | yes |
+| <a name="input_lambda_function"></a> [lambda\_function](#input\_lambda\_function) | n/a | `any` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | value | `string` | n/a | yes |
 
 ## Outputs

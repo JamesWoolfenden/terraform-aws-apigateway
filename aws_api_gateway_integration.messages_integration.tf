@@ -3,7 +3,7 @@ resource "aws_api_gateway_integration" "messages_integration" {
   resource_id             = aws_api_gateway_resource.messages_resource.id
   http_method             = aws_api_gateway_method.messages_method.http_method
   type                    = "AWS"
-  uri                     = data.aws_lambda_function.lambda.invoke_arn
+  uri                     = var.lambda_function.invoke_arn
   integration_http_method = "POST"
 
   request_templates = {

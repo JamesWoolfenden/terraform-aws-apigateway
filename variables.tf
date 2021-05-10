@@ -3,9 +3,7 @@ variable "common_tags" {
   type        = map(any)
 }
 
-variable "function_name" {
-  description = "value"
-  type        = string
+variable "lambda_function" {
 }
 
 variable "name" {
