@@ -6,6 +6,7 @@ resource "aws_lambda_function" "examplea" {
   function_name = var.function_name
   role          = ""
   handler       = "exports.handler"
+  runtime       = "nodejs14.x"
 
   filename = "function.zip"
   tracing_config {
