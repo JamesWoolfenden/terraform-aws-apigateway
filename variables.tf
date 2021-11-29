@@ -21,3 +21,7 @@ variable "authorization" {
   type        = string
   default     = "AWS_IAM"
 }
+
+variable "kms_key_id" {
+  description = "The arn of the KMS key"
+}
