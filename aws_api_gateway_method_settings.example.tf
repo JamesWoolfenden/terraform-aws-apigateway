@@ -4,7 +4,9 @@ resource "aws_api_gateway_method_settings" "example" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "ERROR"
+    metrics_enabled      = true
+    logging_level        = "ERROR"
+    caching_enabled      = true
+    cache_data_encrypted = true
   }
 }

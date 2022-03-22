@@ -6,4 +6,8 @@ resource "aws_api_gateway_deployment" "stage_api" {
 
   rest_api_id = aws_api_gateway_rest_api.api.id
   stage_name  = "api"
+  lifecycle {
+    create_before_destroy = true
+  }
+
 }
