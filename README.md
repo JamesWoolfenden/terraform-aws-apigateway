@@ -133,6 +133,13 @@ No modules.
 | <a name="output_url"></a> [url](#output\_url) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## Policy
+
+This is the policy required to build this project:
+
+<!-- BEGINNING OF PRE-COMMIT-PIKE DOCS HOOK -->
+<!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
+
 ## Related Projects
 
 Check out these related projects.
