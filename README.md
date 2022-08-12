@@ -135,9 +135,51 @@ No modules.
 
 ## Policy
 
-This is the policy required to build this project:
-
 <!-- BEGINNING OF PRE-COMMIT-PIKE DOCS HOOK -->
+The Policy required is:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": [
+            "apigateway:DELETE",
+            "apigateway:GET",
+            "apigateway:PATCH",
+            "apigateway:POST",
+            "apigateway:PUT",
+            "ec2:DescribeAccountAttributes",
+            "iam:PassRole",
+            "kms:CreateKey",
+            "kms:DescribeKey",
+            "kms:EnableKeyRotation",
+            "kms:GetKeyPolicy",
+            "kms:GetKeyRotationStatus",
+            "kms:ListResourceTags",
+            "kms:ScheduleKeyDeletion",
+            "lambda:AddPermission",
+            "lambda:CreateFunction",
+            "lambda:DeleteFunction",
+            "lambda:GetFunction",
+            "lambda:GetFunctionCodeSigningConfig",
+            "lambda:GetPolicy",
+            "lambda:ListVersionsByFunction",
+            "lambda:RemovePermission",
+            "logs:AssociateKmsKey",
+            "logs:CreateLogGroup",
+            "logs:DeleteLogGroup",
+            "logs:DeleteRetentionPolicy",
+            "logs:DescribeLogGroups",
+            "logs:DisassociateKmsKey",
+            "logs:ListTagsLogGroup",
+            "logs:PutRetentionPolicy"
+        ],
+        "Resource": "*"
+    }
+}
+
+```
 <!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
 
 ## Related Projects
