@@ -141,42 +141,46 @@ The Policy required is:
 ```json
 {
     "Version": "2012-10-17",
-    "Statement": {
-        "Effect": "Allow",
-        "Action": [
-            "apigateway:DELETE",
-            "apigateway:GET",
-            "apigateway:PATCH",
-            "apigateway:POST",
-            "apigateway:PUT",
-            "ec2:DescribeAccountAttributes",
-            "iam:PassRole",
-            "kms:CreateKey",
-            "kms:DescribeKey",
-            "kms:EnableKeyRotation",
-            "kms:GetKeyPolicy",
-            "kms:GetKeyRotationStatus",
-            "kms:ListResourceTags",
-            "kms:ScheduleKeyDeletion",
-            "lambda:AddPermission",
-            "lambda:CreateFunction",
-            "lambda:DeleteFunction",
-            "lambda:GetFunction",
-            "lambda:GetFunctionCodeSigningConfig",
-            "lambda:GetPolicy",
-            "lambda:ListVersionsByFunction",
-            "lambda:RemovePermission",
-            "logs:AssociateKmsKey",
-            "logs:CreateLogGroup",
-            "logs:DeleteLogGroup",
-            "logs:DeleteRetentionPolicy",
-            "logs:DescribeLogGroups",
-            "logs:DisassociateKmsKey",
-            "logs:ListTagsLogGroup",
-            "logs:PutRetentionPolicy"
-        ],
-        "Resource": "*"
-    }
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:DELETE",
+                "apigateway:GET",
+                "apigateway:PATCH",
+                "apigateway:POST",
+                "apigateway:PUT",
+                "apigateway:UpdateRestApiPolicy",
+                "ec2:DescribeAccountAttributes",
+                "iam:PassRole",
+                "kms:CreateKey",
+                "kms:DescribeKey",
+                "kms:EnableKeyRotation",
+                "kms:GetKeyPolicy",
+                "kms:GetKeyRotationStatus",
+                "kms:ListResourceTags",
+                "kms:ScheduleKeyDeletion",
+                "lambda:AddPermission",
+                "lambda:CreateFunction",
+                "lambda:DeleteFunction",
+                "lambda:GetFunction",
+                "lambda:GetFunctionCodeSigningConfig",
+                "lambda:GetPolicy",
+                "lambda:ListVersionsByFunction",
+                "lambda:RemovePermission",
+                "logs:AssociateKmsKey",
+                "logs:CreateLogGroup",
+                "logs:DeleteLogGroup",
+                "logs:DeleteRetentionPolicy",
+                "logs:DescribeLogGroups",
+                "logs:DisassociateKmsKey",
+                "logs:ListTagsLogGroup",
+                "logs:PutRetentionPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 
 ```
@@ -233,11 +237,3 @@ under the License.
 
 [jameswoolfenden_homepage]: https://github.com/jameswoolfenden
 [jameswoolfenden_avatar]: https://github.com/jameswoolfenden.png?size=150
-[github]: https://github.com/jameswoolfenden
-[linkedin]: https://www.linkedin.com/in/jameswoolfenden/
-[twitter]: https://twitter.com/JimWoolfenden
-[share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-apigateway&url=https://github.com/jameswoolfenden/terraform-aws-apigateway
-[share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-apigateway&url=https://github.com/jameswoolfenden/terraform-aws-apigateway
-[share_reddit]: https://reddit.com/submit/?url=https://github.com/jameswoolfenden/terraform-aws-apigateway
-[share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/jameswoolfenden/terraform-aws-apigateway
-[share_email]: mailto:?subject=terraform-aws-apigateway&body=https://github.com/jameswoolfenden/terraform-aws-apigateway
