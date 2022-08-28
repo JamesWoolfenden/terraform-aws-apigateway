@@ -151,16 +151,44 @@ The Policy required is:
                 "apigateway:PATCH",
                 "apigateway:POST",
                 "apigateway:PUT",
-                "apigateway:UpdateRestApiPolicy",
-                "ec2:DescribeAccountAttributes",
-                "iam:PassRole",
+                "apigateway:UpdateRestApiPolicy"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeAccountAttributes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
                 "kms:CreateKey",
                 "kms:DescribeKey",
                 "kms:EnableKeyRotation",
                 "kms:GetKeyPolicy",
                 "kms:GetKeyRotationStatus",
                 "kms:ListResourceTags",
-                "kms:ScheduleKeyDeletion",
+                "kms:ScheduleKeyDeletion"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
                 "lambda:AddPermission",
                 "lambda:CreateFunction",
                 "lambda:DeleteFunction",
@@ -168,7 +196,14 @@ The Policy required is:
                 "lambda:GetFunctionCodeSigningConfig",
                 "lambda:GetPolicy",
                 "lambda:ListVersionsByFunction",
-                "lambda:RemovePermission",
+                "lambda:RemovePermission"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
                 "logs:AssociateKmsKey",
                 "logs:CreateLogGroup",
                 "logs:DeleteLogGroup",

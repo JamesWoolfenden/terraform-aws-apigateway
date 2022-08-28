@@ -1,7 +1,0 @@
-version: 0.1
-resource_usage:
-  aws_lambda_function.examplea:
-    monthly_requests: 0
-    request_duration_ms: 0
-  module.apigateway.aws_api_gateway_rest_api.api:
-    monthly_requests: 0
