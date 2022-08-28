@@ -28,47 +28,6 @@ module "apigateway" {
 }
 ```
 
-## IAM Permissions
-
-Policies used to create and destroy this resource:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "apigateway:DELETE",
-        "apigateway:GET",
-        "apigateway:PATCH",
-        "apigateway:POST",
-        "apigateway:PUT",
-        "apigateway:SetWebACL",
-        "apigateway:UpdateRestApiPolicy"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Action": [
-        "lambda:AddPermission",
-        "lambda:GetAlias",
-        "lambda:GetFunction",
-        "lambda:GetFunctionConfiguration",
-        "lambda:GetPolicy",
-        "lambda:ListAliases",
-        "lambda:ListFunctions",
-        "lambda:ListLayers",
-        "lambda:ListTags",
-        "lambda:RemovePermission"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-```
-
 ## Detailed Notes
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
