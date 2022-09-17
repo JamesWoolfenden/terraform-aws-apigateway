@@ -95,10 +95,15 @@ No modules.
 ## Policy
 
 <!-- BEGINNING OF PRE-COMMIT-PIKE DOCS HOOK -->
-The Policy required is:
+The Terraform resource required is:
 
-```json
-{
+```golang
+resource "aws_iam_policy" "terraformXVlBzgba" {
+  name        = "terraformXVlBzgba"
+  path        = "/"
+  description = "Add Description"
+
+  policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -118,7 +123,7 @@ The Policy required is:
             "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
-                "ec2:DescribeAccountAttributes"
+                "iam:PassRole"
             ],
             "Resource": "*"
         },
@@ -126,41 +131,14 @@ The Policy required is:
             "Sid": "VisualEditor2",
             "Effect": "Allow",
             "Action": [
-                "iam:PassRole"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "VisualEditor3",
-            "Effect": "Allow",
-            "Action": [
-                "kms:CreateKey",
-                "kms:DescribeKey",
-                "kms:EnableKeyRotation",
-                "kms:GetKeyPolicy",
-                "kms:GetKeyRotationStatus",
-                "kms:ListResourceTags",
-                "kms:ScheduleKeyDeletion"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "VisualEditor4",
-            "Effect": "Allow",
-            "Action": [
                 "lambda:AddPermission",
-                "lambda:CreateFunction",
-                "lambda:DeleteFunction",
-                "lambda:GetFunction",
-                "lambda:GetFunctionCodeSigningConfig",
                 "lambda:GetPolicy",
-                "lambda:ListVersionsByFunction",
                 "lambda:RemovePermission"
             ],
             "Resource": "*"
         },
         {
-            "Sid": "VisualEditor5",
+            "Sid": "VisualEditor3",
             "Effect": "Allow",
             "Action": [
                 "logs:AssociateKmsKey",
@@ -175,7 +153,9 @@ The Policy required is:
             "Resource": "*"
         }
     ]
+})
 }
+
 
 ```
 <!-- END OF PRE-COMMIT-PIKE DOCS HOOK -->
