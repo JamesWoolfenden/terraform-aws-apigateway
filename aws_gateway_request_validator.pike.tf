@@ -4,7 +4,6 @@ resource "aws_api_gateway_request_validator" "example" {
   validate_request_body       = var.validator.validate_request_body
   validate_request_parameters = var.validator.validate_request_parameters
 }
-
 variable "validator" {
   type = object({
     name                        = string

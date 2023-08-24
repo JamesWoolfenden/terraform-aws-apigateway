@@ -12,7 +12,6 @@ resource "aws_api_gateway_stage" "examplea" {
   }
 
 }
-
 variable "stage_name" {
   type    = string
   default = "test"

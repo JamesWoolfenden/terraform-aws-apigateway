@@ -11,7 +11,7 @@
 
 ---
 
-Terraform module to create an apigateway, each gateway will have different resources hanging off it so its more of an example than a module. It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+Terraform module to create an API Gateway, each gateway will have different resources hanging off it so its more of an example than a module. It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 ## Usage
 
@@ -23,8 +23,12 @@ Include this repository as a module in your existing Terraform code:
 
 ```hcl
 module "apigateway" {
-  source                 = "jameswoolfenden/apigateway/aws"
-  common_tags            = var.common_tags
+  source          = "git::https://github.com/JamesWoolfenden/terraform-aws-apigateway.git?ref=87a8ac3b548615d170c9f56cb30e92f11667c85c"
+  allowed_range   = var.allowed_range
+  common_tags     = var.common_tags
+  lambda_function = aws_lambda_function.examplea
+  name            = var.name
+  kms_key_id      = aws_kms_key.example.arn
 }
 ```
 
@@ -84,6 +88,7 @@ No modules.
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The arn of the KMS key | `any` | n/a | yes |
 | <a name="input_lambda_function"></a> [lambda\_function](#input\_lambda\_function) | n/a | `any` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | value | `string` | n/a | yes |
+| <a name="input_retention"></a> [retention](#input\_retention) | n/a | `number` | `365` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | n/a | `string` | `"test"` | no |
 | <a name="input_validator"></a> [validator](#input\_validator) | n/a | <pre>object({<br>    name                        = string<br>    validate_request_body       = bool<br>    validate_request_parameters = bool<br>  })</pre> | <pre>{<br>  "name": "example",<br>  "validate_request_body": true,<br>  "validate_request_parameters": true<br>}</pre> | no |
 
