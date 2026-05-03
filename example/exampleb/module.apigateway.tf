@@ -1,5 +1,5 @@
 module "apigateway" {
-  source = "git::https://github.com/JamesWoolfenden/terraform-aws-apigateway.git?ref=48c7e9061f8ff442555533d6add274b3e66f4ab4" #v0.1.64
+  source          = "git::https://github.com/JamesWoolfenden/terraform-aws-apigateway.git?ref=48c7e9061f8ff442555533d6add274b3e66f4ab4" #v0.1.64
   allowed_range   = var.allowed_range
   common_tags     = var.common_tags
   lambda_function = aws_lambda_function.examplea
