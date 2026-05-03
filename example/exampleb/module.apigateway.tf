@@ -6,6 +6,7 @@ module "apigateway" {
   name            = var.name
   kms_key_id      = aws_kms_key.example.arn
 }
+
 resource "aws_kms_key" "example" {
   #checkov:skip=CKV2_AWS_64: For example only
   enable_key_rotation = true
