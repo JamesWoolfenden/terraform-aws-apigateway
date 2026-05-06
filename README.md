@@ -40,7 +40,7 @@ No requirements.
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
@@ -50,7 +50,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_api_gateway_api_key.apikey](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_api_key) | resource |
 | [aws_api_gateway_client_certificate.pike](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_client_certificate) | resource |
 | [aws_api_gateway_deployment.stage_api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment) | resource |
@@ -79,7 +79,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_allowed_range"></a> [allowed\_range](#input\_allowed\_range) | List of allowed CIDR | `list(any)` | n/a | yes |
 | <a name="input_authorization"></a> [authorization](#input\_authorization) | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
@@ -88,14 +88,13 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | value | `string` | n/a | yes |
 | <a name="input_retention"></a> [retention](#input\_retention) | n/a | `number` | `365` | no |
 | <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | n/a | `string` | `"test"` | no |
-| <a name="input_validator"></a> [validator](#input\_validator) | n/a | <pre>object({<br>    name                        = string<br>    validate_request_body       = bool<br>    validate_request_parameters = bool<br>  })</pre> | <pre>{<br>  "name": "example",<br>  "validate_request_body": true,<br>  "validate_request_parameters": true<br>}</pre> | no |
+| <a name="input_validator"></a> [validator](#input\_validator) | n/a | <pre>object({<br/>    name                        = string<br/>    validate_request_body       = bool<br/>    validate_request_parameters = bool<br/>  })</pre> | <pre>{<br/>  "name": "example",<br/>  "validate_request_body": true,<br/>  "validate_request_parameters": true<br/>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_api"></a> [api](#output\_api) | n/a |
-| <a name="output_url"></a> [url](#output\_url) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Policy
@@ -195,7 +194,7 @@ Please use the [issue tracker](https://github.com/jameswoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright © 2019-2023 James Woolfenden
+Copyright © 2019-2026 James Woolfenden
 
 ## License
 
