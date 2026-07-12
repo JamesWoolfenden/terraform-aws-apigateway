@@ -5,4 +5,9 @@ resource "aws_api_gateway_usage_plan" "api" {
     api_id = aws_api_gateway_rest_api.api.id
     stage  = aws_api_gateway_deployment.stage_api.id
   }
+
+  throttle_settings {
+    burst_limit = var.throttle.burst_limit
+    rate_limit  = var.throttle.rate_limit
+  }
 }

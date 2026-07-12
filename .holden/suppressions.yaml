@@ -1,0 +1,24 @@
+suppressions:
+  - policy_id: HLD_TF_073
+    resource_id: workspace
+    reason: >
+      This module intentionally spans API Gateway, Lambda, IAM, CloudWatch, KMS, and WAFv2
+      (21 distinct resource types) to ship a complete, secure-by-default API Gateway module
+      (request validation, WAF with managed rule groups, encrypted + audited logging) rather
+      than requiring every consumer to wire that up themselves.
+    approved_by: james.woolfenden
+
+  - policy_id: HLD_TF_029
+    resource_id: workspace
+    reason: >
+      Permission count follows directly from the resource-type breadth accepted for
+      HLD_TF_073; same design rationale.
+    approved_by: james.woolfenden
+
+  - policy_id: HLD_TF_030
+    resource_id: workspace
+    reason: >
+      Service count (11) follows directly from bundling API Gateway, WAFv2, KMS-encrypted
+      CloudWatch logging, and IAM in one reusable module by design; same rationale as
+      HLD_TF_073.
+    approved_by: james.woolfenden

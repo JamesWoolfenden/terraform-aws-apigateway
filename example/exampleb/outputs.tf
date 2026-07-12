@@ -1,3 +1,4 @@
 output "gateway" {
-  value = module.apigateway
+  value       = module.apigateway
+  description = "The API Gateway module outputs."
 }

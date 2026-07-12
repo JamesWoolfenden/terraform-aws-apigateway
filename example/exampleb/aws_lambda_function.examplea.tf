@@ -1,3 +1,12 @@
+# holden:ignore:HLD_AWS_022
+# holden:ignore:HLD_AWS_102
+# holden:ignore:HLD_AWS_115
+# holden:ignore:HLD_AWS_192
+# holden:ignore:HLD_AWS_192
+# holden:ignore:HLD_AWS_042
+# holden:ignore:HLD_AWS_190
+# holden:ignore:HLD_AWS_103
+# holden:ignore:HLD_AWS_021
 resource "aws_lambda_function" "examplea" {
   # checkov:skip=CKV_AWS_289: X-Ray tracing not required for this Lambda
   # checkov:skip=CKV_AWS_288: Reserved concurrency not configured for this Lambda

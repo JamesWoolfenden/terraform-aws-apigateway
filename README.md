@@ -23,7 +23,6 @@ Include this repository as a module in your existing Terraform code:
 module "apigateway" {
   source          = "git::https://github.com/JamesWoolfenden/terraform-aws-apigateway.git?ref=87a8ac3b548615d170c9f56cb30e92f11667c85c"
   allowed_range   = var.allowed_range
-  common_tags     = var.common_tags
   lambda_function = aws_lambda_function.examplea
   name            = var.name
   kms_key_id      = aws_kms_key.example.arn
@@ -52,7 +51,6 @@ No modules.
 | Name | Type |
 | ---- | ---- |
 | [aws_api_gateway_api_key.apikey](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_api_key) | resource |
-| [aws_api_gateway_client_certificate.pike](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_client_certificate) | resource |
 | [aws_api_gateway_deployment.stage_api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment) | resource |
 | [aws_api_gateway_integration.messages_integration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
 | [aws_api_gateway_integration.mock](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) | resource |
@@ -63,38 +61,44 @@ No modules.
 | [aws_api_gateway_method.options_method](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) | resource |
 | [aws_api_gateway_method_response.ok](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response) | resource |
 | [aws_api_gateway_method_response.options_response](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response) | resource |
-| [aws_api_gateway_method_settings.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_settings) | resource |
-| [aws_api_gateway_request_validator.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator) | resource |
+| [aws_api_gateway_method_settings.all_methods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_settings) | resource |
+| [aws_api_gateway_request_validator.requests](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator) | resource |
 | [aws_api_gateway_resource.messages_resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_resource) | resource |
 | [aws_api_gateway_rest_api.api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api) | resource |
 | [aws_api_gateway_stage.examplea](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage) | resource |
 | [aws_api_gateway_usage_plan.api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan) | resource |
 | [aws_api_gateway_usage_plan_key.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan_key) | resource |
-| [aws_cloudwatch_log_group.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_group.api_gateway_execution_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_group.waf](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_resource_policy.waf](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_resource_policy) | resource |
 | [aws_lambda_permission.apigw_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
+| [aws_wafv2_web_acl.api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) | resource |
+| [aws_wafv2_web_acl_association.api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_association) | resource |
+| [aws_wafv2_web_acl_logging_configuration.api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_logging_configuration) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.api_gateway_resource_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.waf_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_allowed_range"></a> [allowed\_range](#input\_allowed\_range) | List of allowed CIDR | `list(any)` | n/a | yes |
+| <a name="input_allowed_range"></a> [allowed\_range](#input\_allowed\_range) | List of allowed CIDR | `list(string)` | n/a | yes |
 | <a name="input_authorization"></a> [authorization](#input\_authorization) | What Auth to use for the method | `string` | `"AWS_IAM"` | no |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
-| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The arn of the KMS key | `any` | n/a | yes |
-| <a name="input_lambda_function"></a> [lambda\_function](#input\_lambda\_function) | n/a | `any` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | value | `string` | n/a | yes |
-| <a name="input_retention"></a> [retention](#input\_retention) | n/a | `number` | `365` | no |
-| <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | n/a | `string` | `"test"` | no |
-| <a name="input_validator"></a> [validator](#input\_validator) | n/a | <pre>object({<br/>    name                        = string<br/>    validate_request_body       = bool<br/>    validate_request_parameters = bool<br/>  })</pre> | <pre>{<br/>  "name": "example",<br/>  "validate_request_body": true,<br/>  "validate_request_parameters": true<br/>}</pre> | no |
+| <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The arn of the KMS key used to encrypt the API Gateway execution log group. | `string` | n/a | yes |
+| <a name="input_lambda_function"></a> [lambda\_function](#input\_lambda\_function) | The Lambda function invoked by API Gateway (e.g. aws\_lambda\_function.this). | <pre>object({<br/>    arn        = string<br/>    invoke_arn = string<br/>  })</pre> | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | The name to give the API Gateway REST API, API key, and usage plan. | `string` | n/a | yes |
+| <a name="input_retention"></a> [retention](#input\_retention) | The number of days to retain API Gateway execution logs. | `number` | `365` | no |
+| <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | The name of the API Gateway stage. | `string` | `"test"` | no |
+| <a name="input_throttle"></a> [throttle](#input\_throttle) | Throttle settings applied to the API Gateway usage plan (requests per second). | <pre>object({<br/>    burst_limit = number<br/>    rate_limit  = number<br/>  })</pre> | <pre>{<br/>  "burst_limit": 100,<br/>  "rate_limit": 50<br/>}</pre> | no |
+| <a name="input_validator"></a> [validator](#input\_validator) | Configuration for the API Gateway request validator (name and which parts of a request it validates). | <pre>object({<br/>    name                        = string<br/>    validate_request_body       = bool<br/>    validate_request_parameters = bool<br/>  })</pre> | <pre>{<br/>  "name": "requests",<br/>  "validate_request_body": true,<br/>  "validate_request_parameters": true<br/>}</pre> | no |
 
 ## Outputs
 
 | Name | Description |
 | ---- | ----------- |
-| <a name="output_api"></a> [api](#output\_api) | n/a |
+| <a name="output_api"></a> [api](#output\_api) | The API Gateway REST API resource. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Policy
@@ -103,6 +107,7 @@ No modules.
 The Terraform resource required is:
 
 ```golang
+# apply role — full permissions for terraform apply
 resource "aws_iam_policy" "terraform_pike" {
   name_prefix = "terraform_pike"
   path        = "/"
@@ -115,12 +120,8 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
-                "apigateway:DELETE",
-                "apigateway:GET",
-                "apigateway:PATCH",
-                "apigateway:POST",
-                "apigateway:PUT",
-                "apigateway:UpdateRestApiPolicy"
+                "amplify:DisassociateWebACL",
+                "amplify:GetWebACLForResource"
             ],
             "Resource": [
                 "*"
@@ -130,7 +131,13 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
-                "iam:PassRole"
+                "apigateway:DELETE",
+                "apigateway:GET",
+                "apigateway:PATCH",
+                "apigateway:POST",
+                "apigateway:PUT",
+                "apigateway:SetWebACL",
+                "apigateway:UpdateRestApiPolicy"
             ],
             "Resource": [
                 "*"
@@ -138,6 +145,76 @@ resource "aws_iam_policy" "terraform_pike" {
         },
         {
             "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "apprunner:AssociateWebAcl",
+                "apprunner:DescribeWebAclForService",
+                "apprunner:DisassociateWebAcl",
+                "apprunner:ListAssociatedServicesForWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "appsync:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "cognito-idp:AssociateWebACL",
+                "cognito-idp:DisassociateWebACL",
+                "cognito-idp:GetWebACLForResource",
+                "cognito-idp:ListResourcesForWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AssociateVerifiedAccessInstanceWebAcl",
+                "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+                "ec2:DisassociateVerifiedAccessInstanceWebAcl",
+                "ec2:GetVerifiedAccessInstanceWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:SetWebACL",
+                "elasticloadbalancing:SetWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor7",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor8",
             "Effect": "Allow",
             "Action": [
                 "lambda:AddPermission",
@@ -149,18 +226,145 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor3",
+            "Sid": "VisualEditor9",
             "Effect": "Allow",
             "Action": [
                 "logs:AssociateKmsKey",
                 "logs:CreateLogGroup",
                 "logs:DeleteLogGroup",
+                "logs:DeleteResourcePolicy",
                 "logs:DeleteRetentionPolicy",
                 "logs:DescribeLogGroups",
+                "logs:DescribeResourcePolicies",
                 "logs:DisassociateKmsKey",
                 "logs:ListTagsForResource",
                 "logs:ListTagsLogGroup",
+                "logs:PutResourcePolicy",
                 "logs:PutRetentionPolicy"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor10",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:CreateWebACL",
+                "wafv2:DeleteWebACL",
+                "wafv2:DisassociateWebACL",
+                "wafv2:GetLoggingConfiguration",
+                "wafv2:GetPermissionPolicy",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource",
+                "wafv2:ListTagsForResource",
+                "wafv2:PutLoggingConfiguration",
+                "wafv2:PutPermissionPolicy",
+                "wafv2:UpdateWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+})
+}
+
+# plan role — read-only permissions for terraform plan
+resource "aws_iam_policy" "terraform_pike_plan" {
+  name_prefix = "terraform_pike_plan"
+  path        = "/"
+  description = "Pike Autogenerated policy from IAC"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "amplify:GetWebACLForResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "apprunner:AssociateWebAcl",
+                "apprunner:DescribeWebAclForService",
+                "apprunner:DisassociateWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "appsync:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "cognito-idp:AssociateWebACL",
+                "cognito-idp:DisassociateWebACL",
+                "cognito-idp:GetWebACLForResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AssociateVerifiedAccessInstanceWebAcl",
+                "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+                "ec2:DisassociateVerifiedAccessInstanceWebAcl",
+                "ec2:GetVerifiedAccessInstanceWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor7",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:DisassociateWebACL",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource"
             ],
             "Resource": [
                 "*"

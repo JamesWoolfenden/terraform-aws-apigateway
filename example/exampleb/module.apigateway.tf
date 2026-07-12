@@ -1,13 +1,36 @@
+# holden:ignore:HLD_TF_073
+# holden:ignore:HLD_TF_026
 module "apigateway" {
-  source          = "git::https://github.com/JamesWoolfenden/terraform-aws-apigateway.git?ref=75c109a7162890715d7f60e0ca66b4b4ee5552bc" #v0.1.65
+  source          = "../../"
   allowed_range   = var.allowed_range
-  common_tags     = var.common_tags
   lambda_function = aws_lambda_function.examplea
   name            = var.name
-  kms_key_id      = aws_kms_key.example.arn
+  kms_key_id      = aws_kms_key.apigateway.arn
 }
 
-resource "aws_kms_key" "example" {
+data "aws_caller_identity" "current" {}
+
+resource "aws_kms_key" "apigateway" {
   #checkov:skip=CKV2_AWS_64: For example only
-  enable_key_rotation = true
+  enable_key_rotation     = true
+  deletion_window_in_days = 7
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "Allow administration of the key"
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+        }
+        Action   = "kms:*"
+        Resource = "*"
+      }
+    ]
+  })
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }

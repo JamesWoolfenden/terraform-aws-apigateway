@@ -1,0 +1,43 @@
+id: HLD_PROPOSED_002
+name: IAM policy document Allow statements must not use a wildcard resource
+principle: identity-and-access
+severity: HIGH
+rationale: |
+  An IAM policy statement with effect = "Allow" and resources = ["*"] grants the
+  listed actions against every resource in the account, not just the resource(s)
+  the statement was written to protect. Even when actions and principals are
+  tightly scoped, a wildcard resource means any future action added to the
+  statement automatically applies account-wide. This is the same class of risk
+  as a wildcard action (HLD_AWS_142) or wildcard principal (HLD_AWS_143), just on
+  the third axis of an IAM statement, and is a common copy-paste mistake from
+  example policies.
+message: |
+  data.aws_iam_policy_document statement has effect = "Allow" and resources
+  contains a literal wildcard "*", granting the listed actions on every
+  resource in the account.
+remediation: |
+  Replace the wildcard with the specific resource ARN(s) the statement should
+  apply to:
+
+    data "aws_iam_policy_document" "example" {
+      statement {
+        effect    = "Allow"
+        actions   = ["s3:GetObject"]
+        resources = ["arn:aws:s3:::my-bucket/*"]
+      }
+    }
+
+  If the statement is genuinely intended to apply account-wide (rare), suppress
+  this finding with a holden suppression annotation and document why.
+resources:
+  data.aws_iam_policy_document:
+    path: statement
+    not_any:
+      all:
+        - any:
+            - path: effect
+              absent: true
+            - path: effect
+              equals: Allow
+        - path: resources
+          contains: "*"

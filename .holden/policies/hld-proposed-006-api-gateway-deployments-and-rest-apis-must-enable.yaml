@@ -1,0 +1,39 @@
+id: HLD_PROPOSED_006
+name: API Gateway deployments and REST APIs must enable lifecycle.create_before_destroy
+principle: reliability
+severity: MEDIUM
+rationale: |
+  aws_api_gateway_deployment and aws_api_gateway_rest_api are destroy-and-recreate
+  by default when a change forces replacement (e.g. certain endpoint_configuration
+  or body changes). Without lifecycle.create_before_destroy = true, Terraform
+  destroys the live deployment or REST API before creating its replacement,
+  causing a hard outage for every client of the API for the duration of the
+  apply. create_before_destroy makes the replacement resource first, so
+  traffic only cuts over once the new one exists.
+message: |
+  aws_api_gateway_deployment or aws_api_gateway_rest_api does not set
+  lifecycle.create_before_destroy = true, so a forced replacement will destroy
+  the live resource before its replacement is created.
+remediation: |
+  Add a lifecycle block to the resource:
+
+    resource "aws_api_gateway_rest_api" "example" {
+      name = "example"
+
+      lifecycle {
+        create_before_destroy = true
+      }
+    }
+resources:
+  aws_api_gateway_deployment:
+    all:
+      - path: lifecycle.create_before_destroy
+        not_null: true
+      - path: lifecycle.create_before_destroy
+        equals: true
+  aws_api_gateway_rest_api:
+    all:
+      - path: lifecycle.create_before_destroy
+        not_null: true
+      - path: lifecycle.create_before_destroy
+        equals: true

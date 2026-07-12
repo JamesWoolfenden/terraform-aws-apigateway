@@ -1,18 +1,15 @@
 resource "aws_api_gateway_stage" "examplea" {
   # checkov:skip=CKV2_AWS_29: todo this isn't a correct violation
+  # checkov:skip=CKV2_AWS_51: client certificate auth has no effect here — every integration on this API is
+  # type=AWS (Lambda) or MOCK, never HTTP_PROXY, and API Gateway only presents a client cert to HTTP backends.
   deployment_id         = aws_api_gateway_deployment.stage_api.id
   rest_api_id           = aws_api_gateway_rest_api.api.id
   stage_name            = var.stage_name
-  client_certificate_id = aws_api_gateway_client_certificate.pike.id
   cache_cluster_enabled = true
   xray_tracing_enabled  = true
   access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.example.arn
+    destination_arn = aws_cloudwatch_log_group.api_gateway_execution_logs.arn
     format          = "JSON"
   }
 
-}
-variable "stage_name" {
-  type    = string
-  default = "test"
 }

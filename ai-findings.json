@@ -1,0 +1,77 @@
+{
+  "findings": [
+    {
+      "confidence": "high",
+      "explanation": "HLD_AWS_193 already flags `authorization = \"NONE\"` on this method, but the config pairs it with `api_key_required = true`, which looks like a compensating control to a human reader and would suppress a naive re-check. It isn't one: AWS API keys are explicitly not an authentication or authorization mechanism (they exist for usage-plan throttling/billing only) and don't validate caller identity. Worse, browsers cannot attach custom headers like `x-api-key` to a CORS preflight request, so enforcing `api_key_required` on an OPTIONS method will make real cross-origin preflights fail with 403 \u2014 the control is simultaneously ineffective as security and actively breaks the CORS flow it sits next to. Because this method is backed by a MOCK integration with no business logic, `authorization = \"NONE\"` is actually the correct choice here; the defect is specifically the false sense of protection from `api_key_required`.",
+      "file": "aws_api_gateway_method.options_method.tf",
+      "id": "HOLDEN_AI_001",
+      "line": 6,
+      "principle": "identity-and-access",
+      "related_resources": [
+        "aws_api_gateway_integration.mock",
+        "aws_api_gateway_method.messages_method"
+      ],
+      "remediation": "Remove `api_key_required = true` from the OPTIONS method. Keep `authorization = \"NONE\"` (appropriate for a MOCK-backed CORS preflight) and continue to rely on `messages_method`'s `authorization = var.authorization` (default `AWS_IAM`) for the actual access control on the functional route.",
+      "resource": "aws_api_gateway_method.options_method",
+      "severity": "HIGH",
+      "supersedes": "HLD_AWS_193",
+      "title": "api_key_required on the OPTIONS method is not an authorization control and breaks CORS preflight"
+    },
+    {
+      "confidence": "medium",
+      "explanation": "HLD_AWS_143 already flags the wildcard principal on this statement, and per the review taxonomy the engine can't evaluate whether the `IpAddress` condition on `var.allowed_range` actually narrows access at runtime \u2014 a classic Condition-block blind spot. Looking at the resolved value: `var.allowed_range`'s only validation checks that entries are non-empty strings (variables.tf:22-30); nothing rejects `0.0.0.0/0` or `::/0`. Combined with `var.authorization` (variables.tf:32-41), which defaults to `AWS_IAM` but accepts `\"NONE\"`, a caller who sets `allowed_range = [\"0.0.0.0/0\"]` and `authorization = \"NONE\"` gets a fully public, unauthenticated Lambda-backed POST endpoint with no error or warning from the module \u2014 both example configs in this repo pass safe private CIDRs, but nothing in the module enforces that at the interface boundary.",
+      "file": "data.aws_iam_policy_document.api_gateway_resource_policy.tf",
+      "id": "HOLDEN_AI_002",
+      "line": 6,
+      "principle": "network-security",
+      "related_resources": [
+        "variables.tf#allowed_range",
+        "variables.tf#authorization",
+        "aws_api_gateway_method.messages_method"
+      ],
+      "remediation": "Add a validation block to `var.allowed_range` that rejects `0.0.0.0/0`/`::/0`, e.g.:\n\n  validation {\n    condition     = alltrue([for cidr in var.allowed_range : !contains([\"0.0.0.0/0\", \"::/0\"], cidr)])\n    error_message = \"allowed_range must not include 0.0.0.0/0 or ::/0.\"\n  }\n\nConsider also cross-validating that `authorization == \"NONE\"` is only permitted when `allowed_range` is non-trivially scoped.",
+      "resource": "data.aws_iam_policy_document.api_gateway_resource_policy",
+      "severity": "HIGH",
+      "supersedes": "HLD_AWS_143",
+      "title": "Wildcard-principal resource policy's IP condition has no floor \u2014 nothing stops allowed_range from being 0.0.0.0/0"
+    },
+    {
+      "confidence": "high",
+      "explanation": "`aws_api_gateway_client_certificate.pike` is created and wired to the stage via `client_certificate_id`, which reads as an mTLS-style backend-authentication control. API Gateway only presents this certificate on outbound calls to an `HTTP`/`HTTP_PROXY` integration so the backend can validate the gateway's identity. Every integration this module defines is `type = \"AWS\"` (Lambda, aws_api_gateway_integration.messages_integration.tf:5) or `type = \"MOCK\"` (aws_api_gateway_integration.mock.tf:5) \u2014 neither uses or validates a client certificate. This is dead configuration: it costs nothing to fail, but it also gives reviewers false confidence that backend calls are certificate-authenticated when no such verification is actually possible with a Lambda integration. No rule flags this because it requires correlating the stage's `client_certificate_id` against every integration `type` on the same REST API.",
+      "file": "aws_api_gateway_stage.examplea.tf",
+      "id": "HOLDEN_AI_003",
+      "line": 6,
+      "principle": "governance",
+      "related_resources": [
+        "aws_api_gateway_client_certificate.pike",
+        "aws_api_gateway_integration.messages_integration",
+        "aws_api_gateway_integration.mock"
+      ],
+      "remediation": "Remove `aws_api_gateway_client_certificate.pike` and the `client_certificate_id` attribute on the stage unless/until this module adds an `HTTP_PROXY` integration to a backend that actually validates the client certificate. If it's intentionally reserved for future HTTP backends, document that explicitly next to the resource.",
+      "resource": "aws_api_gateway_stage.examplea",
+      "severity": "MEDIUM",
+      "title": "Client certificate attached to the stage has no effect \u2014 the only backend integration is Lambda, not HTTP_PROXY"
+    },
+    {
+      "confidence": "medium",
+      "explanation": "`var.kms_key_id`'s validation explicitly allows `\"\"` (`var.kms_key_id == \"\" || length(trim(var.kms_key_id)) > 0`), and that value flows straight into `aws_cloudwatch_log_group.api_gateway_execution_logs.kms_key_id` with no further check. HLD_AWS_039 (CloudWatch log groups must be encrypted with a KMS key) doesn't fire because holden sees a variable reference, not a literal, and treats it as satisfying `not_null` \u2014 a documented variable/expression blind spot. Both example configurations in this repo pass a real KMS key ARN, so the gap isn't exercised today, but the module's own contract permits any consumer to pass `kms_key_id = \"\"` and silently lose log encryption (or hit an opaque AWS API error, depending on provider version, rather than a clear Terraform-time failure).",
+      "file": "variables.tf",
+      "id": "HOLDEN_AI_004",
+      "line": 48,
+      "principle": "encryption",
+      "related_resources": [
+        "variables.tf#kms_key_id"
+      ],
+      "remediation": "Drop the empty-string branch from the validation and require a real key ARN, or make the opt-out explicit and provider-safe: change `kms_key_id` to `type = string`, `default = null`, and pass `null` (not `\"\"`) through to the log group so an absent key correctly falls back to encryption-at-rest with the AWS-managed default instead of sending an invalid empty string to the API.",
+      "resource": "aws_cloudwatch_log_group.api_gateway_execution_logs",
+      "severity": "LOW",
+      "title": "kms_key_id validation permits an empty string, letting callers silently disable log group encryption"
+    }
+  ],
+  "suggested_policies": [
+    {
+      "rationale": "aws_api_gateway_usage_plan has zero deterministic coverage today (coverage_by_type is empty for this type). 'Has an API key' is frequently conflated with 'is rate-limited', but this module ties a usage plan to the stage (aws_api_gateway_usage_plan.api.tf) without a throttle_settings block, so a valid API key has no burst or steady-state ceiling \u2014 a leaked or shared key enables unbounded cost amplification or an application-layer DoS. This is a plain attribute-presence check on one resource type with no context/intent dependency, so it belongs in the deterministic engine rather than being re-discovered by AI on every scan.",
+      "yaml": "id: HLD_PROPOSED_001\nname: API Gateway usage plans must define throttle settings\ncloud: aws\nprinciple: reliability\nseverity: MEDIUM\nrationale: |\n  A usage plan without throttle_settings has no burst or steady-state rate\n  ceiling for any API key attached to it. A valid but leaked, shared, or\n  over-provisioned key can then issue unbounded requests, leading to backend\n  overload, inflated Lambda/integration costs, or a de facto denial of\n  service against other tenants of the same API. Rate limiting is the\n  primary control a usage plan exists to provide; omitting it defeats the\n  purpose of gating access behind an API key.\nmessage: |\n  aws_api_gateway_usage_plan does not define a throttle_settings block, so\n  requests made with any associated API key are not rate-limited.\nremediation: |\n  Add a throttle_settings block to the usage plan:\n\n    resource \"aws_api_gateway_usage_plan\" \"example\" {\n      name = var.name\n\n      api_stages {\n        api_id = aws_api_gateway_rest_api.api.id\n        stage  = aws_api_gateway_deployment.stage_api.id\n      }\n\n      throttle_settings {\n        burst_limit = 100\n        rate_limit  = 50\n      }\n    }\nresources:\n  aws_api_gateway_usage_plan:\n    path: throttle_settings\n    not_null: true\n"
+    }
+  ]
+}

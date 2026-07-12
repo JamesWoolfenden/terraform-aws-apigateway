@@ -1,0 +1,32 @@
+id: HLD_PROPOSED_005
+name: API Gateway stages should be associated with a WAFv2 web ACL
+principle: network-security
+severity: MEDIUM
+rationale: |
+  An API Gateway stage with no aws_wafv2_web_acl_association has no protection
+  against SQL injection, XSS, bad bots, or volumetric abuse at the edge —
+  every request reaches the method/integration layer unfiltered. This is the
+  mirror image of HLD_AWS_134 (which catches a WAF ACL with no association):
+  here the stage has no WAF at all. Regional or private APIs that rely on an
+  alternative compensating control (IAM authorization, an IP-restricted
+  resource policy, mTLS) are a legitimate exception and should suppress this
+  finding explicitly rather than silently pass it.
+message: |
+  aws_api_gateway_stage has no companion aws_wafv2_web_acl_association, so no
+  WAFv2 web ACL is protecting this stage.
+remediation: |
+  Associate a WAFv2 web ACL with the stage:
+
+    resource "aws_wafv2_web_acl_association" "example" {
+      resource_arn = aws_api_gateway_stage.example.arn
+      web_acl_arn  = aws_wafv2_web_acl.example.arn
+    }
+
+  If this stage is intentionally protected by a different control (IAM auth,
+  IP-restricted resource policy, mTLS), suppress this finding with a holden
+  suppression annotation documenting which control substitutes for the WAF.
+resources:
+  aws_api_gateway_stage:
+    requires_companion:
+      type: aws_wafv2_web_acl_association
+      via: resource_arn
